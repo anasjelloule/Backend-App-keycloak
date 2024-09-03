@@ -25,9 +25,7 @@ This repository contains a Node.js backend API that serves as the central point 
 
 ### Installation
 
-Clone the repository and install dependencies:
-
-```bash
-git clone https://github.com/your-username/nodejs-backend.git
-cd nodejs-backend
-npm install
+#### 1. Clone the Repository
+#### 2. Go inside the repository
+#### 3. run `npm install`
+#### 4. run `npm start`
