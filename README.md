@@ -8,12 +8,12 @@ Welcome to the **Node.js Backend**! This project provides a backend API for inte
 
 ## 🎯 Overview
 
-This repository contains a Node.js backend API that serves as the central point of communication for your microfrontend architecture. It is built using **Express.js** and is protected by **Keycloak** for secure access.
+This repository contains a Node.js backend API that serves as the central point of communication for your microfrontend architecture. It is built using **Express.js** and is protected by **Keycloak** for secure access. Keycloak is used not only for authentication but also to manage authorizations with a dedicated Keycloak client.
 
 ## 🛠️ Key Features
 
 - **🚀 Fast and Lightweight**: Built with **Express.js** for high performance and flexibility.
-- **🔐 Keycloak Authentication**: Centralized authentication and authorization using Keycloak to ensure secure API access.
+- **🔐 Keycloak Authentication & Authorization**: Centralized authentication and authorization using Keycloak to ensure secure API access.
 - **📡 RESTful API**: Provides a set of RESTful endpoints for interacting with the microfrontend applications.
 
 ## 🚀 Quick Start
@@ -21,7 +21,7 @@ This repository contains a Node.js backend API that serves as the central point 
 ### Prerequisites
 
 - **Node.js** (v21+)
-- **Keycloak** (v15+)
+- **Keycloak** (v25+)
 
 ### Installation
 
@@ -29,3 +29,4 @@ This repository contains a Node.js backend API that serves as the central point 
 #### 2. Go inside the repository
 #### 3. run `npm install`
 #### 4. run `npm start`
+
