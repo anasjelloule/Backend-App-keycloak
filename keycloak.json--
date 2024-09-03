@@ -1,0 +1,10 @@
+{
+  "clientId": "EXPRESS",
+  "grantType":"client_credentials",
+  "clientSecret":"zSQ6GHZGr84MKUsCCYYM0xeZVrBrvF1H",
+  "bearerOnly": true,
+  "realm": "NODE_JS",
+  "realmPublicKey": "",
+  "serverUrl": "http://keycloak_web_2:8085",
+  "ssl-required": "none"
+}

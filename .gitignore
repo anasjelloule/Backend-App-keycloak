@@ -1,0 +1,16 @@
+*.log
+node_modules/
+# .env
+.DS_Store
+src/index.js
+*package-lock.json*
+*package.json*
+.git-remote
+uploads
+test.js
+mysql-apt-config_0.8.26-1_all.deb
+script.
+Dockerfile*
+.env.local
+.http
+src/api-holding/routes/scouting/scouting.http

@@ -1,0 +1,90 @@
+import express, { Express, Request, Response } from "express";
+import dotenv from "dotenv";
+import cors from 'cors'; 
+import Consul, { Consul as ConsulType } from 'consul';
+dotenv.config();
+
+const app: Express = express();
+const port = process.env.PORT || 3000;
+
+app.use(
+    cors({
+      credentials: true,
+      origin: ['http://localhost:8300','http://localhost:8500','http://localhost:3000','*','127.0.0.1:8500'] ,
+      allowedHeaders: [
+        'Origin',
+        'X-Requested-With',
+        'Content-Type',
+        'Accept',
+        'Authorization',
+        'set-cookie',
+        'cookie',
+        'user',
+      ],
+      methods: ['GET', 'POST', 'OPTIONS', 'DELETE', 'PATCH', 'PUT'],
+    }),
+  );
+// app.use(cors({credentials: true, origin: true, exposedHeaders: '*'}));
+// Consul client setup
+// const consul = new Consul();
+const consulClient = new Consul({ host: "localhost", port: "8500" });
+ 
+const service = { 
+  id: "service-node2", // Unique identifier for your service
+  name: "service-node2", // Friendly name for your service
+  address: "locahost", // Hostname or IP address of the service
+  port: 3000, // Port where your service listens
+  tags: ["tag1", "tag2"], // Optional service tags
+  check: {
+    // Optional health check configuration
+    http: "http://localhost:3000/health", // URL for health check
+    interval: "10s", // Check interval (e.g., '10s', '5m')
+  },
+};
+
+consulClient.agent.service.register(service, (err) => {
+console.log("called");
+
+  if (err) {
+    console.error("Error registering service:", err);
+  } else {
+    console.log("Service registered successfully!");
+  }
+});
+
+const serviceName = 'my-service';
+const servicePort = 3000;
+
+consulClient.agent.service.list((err, services:any) => {
+    if (err) throw err;
+  
+    const service = services[serviceName];
+  
+    if (!service) throw new Error(`Service ${serviceName} not found`);
+  
+    console.log(`Found service ${serviceName} at ${service.Address}:${service.Port}`);
+  }); 
+
+app.get("/health", (req: Request, res: Response) => {
+    console.log("called Health check") 
+    res.send('OK');
+});
+
+app.get('/config', async (req, res) => {
+    try {
+      const result:any = await consulClient.kv.get('myapp/config/db-url').catch((error) => {
+          console.log(error);
+      });
+      res.send({result});
+    } catch (error) {
+      res.status(500).send('Error retrieving config');
+    }
+  });
+
+app.get("/", (req: Request, res: Response) => {
+  res.send("Express + TypeScript Server");
+});
+
+app.listen(port, () => {
+  console.log(`[server]: Server is running at http://localhost:${port}`);
+});
